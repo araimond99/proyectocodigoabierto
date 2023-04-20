@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acciones de Agente</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+
+                var agent_id = $('input[name="agent"]').val();
+                var action = $('select[name="action"]').val();
+
+                if (agent_id && action) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/agent_actions",
+                        data: JSON.stringify({ "agent_id": agent_id, "action": action }),
+                        contentType: "application/json",
+                        success: function (response) {
+                            alert(response.message);
+                        },
+                        error: function (error) {
+                            alert("Error: " + error.responseText);
+                        }
+                    });
+                } else {
+                    alert("Por favor, ingrese un ID de agente válido y seleccione una acción.");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="text-center mb-4">
+            <h1 class="my-4">Vulnerabilidad</h1>
+            <a href="/" class="btn btn-primary mt-3 mb-3">Regresar al inicio</a>
+        </div>
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="agent">ID del agente:</label>
+                    <input type="text" name="agent" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="action">Acción:</label>
+                    <select name="action" class="form-control" required>
+                        <option value="" disabled selected>Selecciona una acción</option>
+                        <option value="upgrade">Actualizar</option>
+                        <option value="restart">Reiniciar</option>
+                        <option value="delete">Eliminar</option>
+                    </select>
+                </div>
+                <input type="submit" value="Enviar" class="btn btn-primary">
+            </form>
+
+            {% if response %}
+                <h2 class="mt-4">Resultado de la acción "{{ action }}":</h2>
+                <pre>{{ response | tojson(indent=2) }}</pre>
+            {% endif %}
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<html lang="en">
+  <body>
+    <div class="container">
+      <div class="card-header">
+      <h1 class="my-4">Proyecto Segundo Parcial</h1> 
+     </div>
+     <div class="card-body">
+        <h2>Ver Agentes Conectados
+        <a href="/connected_agents" class="btn  btn-default">
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </a>
+      </div>
+      <div class="card-header">
+    <h2 class="my-4">Consultar vulnerabilidades por severidad</h2>
+      <form>
+          <div class="form-group">
+              <label for="severity">Selecciona la severidad:</label>
+              <select class="form-control" id="severity" name="severity" onchange="submitForm()">
+                  <option value="">-- Selecciona una severidad --</option>
+                  <option value="critical">Crítica</option>
+                  <option value="high">Alta</option>
+                  <option value="medium">Media</option>
+                  <option value="low">Baja</option>
+              </select>
+          </div>
+      </form>
+    </div>
+    <div class="card-body">
+      <h2 class="my-4">Buscar vulnerabilidades por palabra clave
+    <a href="/search_vulnerabilities" class="btn btn-default">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </a>
+  </div>
+  <div class="card-header">
+    <h2 class="my-4">Editar Agentes
+  <a href="/agent_actions" class="btn btn-default">
+    <span class="glyphicon glyphicon-arrow-right"></span>
+  </a>
+</div>
+<div class="card-body">
+  <h2 class="my-4">Agentes con vulnerabilidad en común
+  <a href="/common_vulnerability" class="btn btn-default">
+    <span class="glyphicon glyphicon-arrow-right"></span>
+  </a>
+</div>
+<div class="card-header">
+  <h2 class="my-4">Top 10 vulnerabilidades
+  <a href="/top_vulnerabilities" class="btn btn-default">
+    <span class="glyphicon glyphicon-arrow-right"></span>
+  </a>
+</div>
+<div class="card-body">
+  <h2 class="my-4">Top 10 Agentes
+    <a href="/top_agents" class="btn btn-default">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </a>
+
+</div>
+<div class="card-header">
+  <h2 class="my-4">Ver estado del servidor
+    <a href="/server_status"class="btn btn-default">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </a>
+
+</div>
+<div class="card-body">
+  <h2 class="my-4">Información de inventario del agente
+    <a href="/agent_inventory" class="btn btn-default">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+  </a>
+</div>
+
+  </div>
+</div>
+
+  </div>
+  
+  
+
+<!-- jQuery, Popper.js, and Bootstrap JS -->
+
+
+</body>
+<script>
+  function submitForm() {
+      const severity = document.getElementById("severity").value;
+      if (severity) {
+          window.location.href = `/vulnerabilities?severity=${severity}`;
+      }
+  }
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</html>

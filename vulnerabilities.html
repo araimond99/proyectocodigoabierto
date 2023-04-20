@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<html lang="en">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="my-4">Vulnerabilidad</h1>
+      <a href="/" class="btn btn-primary mt-3 mb-3">Regresar al inicio</a>
+  </div>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID del agente</th>
+                <th>Nombre</th>
+                <th>Severidad</th>
+                <!-- ... -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for vulnerability in vulnerabilities %}
+            <tr>
+                <td>{{ vulnerability.agent_id }}</td>
+                <td>{{ vulnerability.name }}</td>
+                <td>{{ vulnerability.severity }}</td>
+                <!-- ... -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="container">
+      <a href="/" class="btn btn-primary mt-3 mb-3">Regresar al inicio</a>
+      <!-- ... (resto del contenido) -->
+  </div>
+</div>
+<!-- jQuery, Popper.js, and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSGFpoO/#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+/JUzl776kCwNUL7UIGkasv+D6ERBHb6S4U6WFGp9J4U6Cet+h6L8hEF+R5g6JocDa/umdL1+4v9h9.xrShLAT5Q5j5NT+KRZeB0pe2H5ito.vx6lS7JjS0RGW8U6E4U6C4U6C4U6W8U6W+R6D7U6C4U6C4U6C4U6C4U6C4U6W8U6W+R6D7U6C4U6C4U6C4U6C4U6C4U6W8U6W+R6D7U6C4U6C4U6C4U6C4U6C4
+
+</body>
+</html>

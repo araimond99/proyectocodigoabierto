@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Inventory</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="my-4">Agent Inventory</h1>
+            <a href="/" class="btn btn-primary mt-3 mb-3">Regresar al inicio</a>
+        </div>
+        <form method="POST">
+            <div class="form-group">
+                <label for="agent_id">Agent ID:</label>
+                <input type="text" name="agent_id" id="agent_id" class="form-control" required>
+            </div>
+            <input type="submit" value="Get Information" class="btn btn-primary">
+        </form>
+        {% if agent_info.hardware %}
+<h2>Hardware Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Board Serial</th>
+            <th>CPU Cores</th>
+            <th>CPU MHz</th>
+            <th>CPU Name</th>
+            <th>RAM Free</th>
+            <th>RAM Total</th>
+            <th>RAM Usage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ agent_info.hardware.data.affected_items[0].board_serial }}</td>
+            <td>{{ agent_info.hardware.data.affected_items[0].cpu.cores }}</td>
+            <td>{{ agent_info.hardware.data.affected_items[0].cpu.mhz }}</td>
+            <td>{{ agent_info.hardware.data.affected_items[0].cpu.name }}</td>
+            <td>{{ agent_info.hardware.data.affected_items[0].ram.free }}</td>
+            <td>{{ agent_info.hardware.data.affected_items[0].ram.total }}</td>
+            <td>{{ agent_info.hardware.data.affected_items[0].ram.usage }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% if agent_info.hotfixes %}
+<h2>Hotfixes Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hotfix</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in agent_info.hotfixes.data.affected_items %}
+        <tr>
+            <td>{{ item.hotfix }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if agent_info.netaddr %}
+<h2>Network Addresses Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Interface</th>
+            <th>Address</th>
+            <th>Netmask</th>
+            <th>Broadcast</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in agent_info.netaddr.data.affected_items %}
+        <tr>
+            <td>{{ item.iface }}</td>
+            <td>{{ item.address }}</td>
+            <td>{{ item.netmask }}</td>
+            <td>{{ item.broadcast }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if agent_info.netiface %}
+<h2>Network Interfaces Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>State</th>
+            <th>MTU</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in agent_info.netiface.data.affected_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.state }}</td>
+            <td>{{ item.mtu }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if agent_info.netproto %}
+<h2>Network Protocols Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Interface</th>
+            <th>Type</th>
+            <th>Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in agent_info.netproto.data.affected_items %}
+        <tr>
+            <td>{{ item.iface }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.gateway }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if agent_info.packages %}
+<h2>Packages Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Version</th>
+            <th>Architecture</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in agent_info.packages.data.affected_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.version }}</td>
+            <td>{{ item.architecture }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if agent_info.ports %}
+    <h2>Ports Information for Agent {{ agent_id }}:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Protocol</th>
+                <th>Local IP</th>
+                <th>Local Port</th>
+                <th>Remote IP</th>
+                <th>Remote Port</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in agent_info.ports.data.affected_items %}
+            <tr>
+                <td>{{ item.protocol }}</td>
+                <td>{{ item.local.ip }}</td>
+                <td>{{ item.local.port }}</td>
+                <td>{{ item.remote.ip }}</td>
+                <td>{{ item.remote.port }}</td>
+                <td>{{ item.state }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if agent_info.processes %}
+<h2>Processes Information for Agent {{ agent_id }}:</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Process ID</th>
+            <th>Command</th>
+            <th>State</th>
+            <th>User</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in agent_info.processes.data.affected_items %}
+        <tr>
+            <td>{{ item.pid }}</td>
+            <td>{{ item.cmd }}</td>
+            <td>{{ item.state }}</td>
+            <td>{{ item.utime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3+5/6k7f6g5f/1+Xnn9+8Tpy0J6bcd" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="my-4">Buscar Vulnerabilidad</h1>
+            <a href="/" class="btn btn-primary mt-3 mb-3">Regresar al inicio</a>
+        </div>
+        <form action="/search_vulnerabilities" method="post">
+            <div class="form-group">
+                <label for="keyword">Palabra clave:</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Ejemplo: Chrome">
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <!-- ... (código previo en search_vulnerabilities.html) -->
+{% if vulnerabilities %}
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>ID del agente</th>
+            <th>Nombre de la vulnerabilidad</th>
+            <th>Severidad</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vulnerability in vulnerabilities %}
+            <tr>
+                <td>{{ vulnerability['agent_id'] }}</td>
+                <td>{{ vulnerability['name'] }}</td>
+                <td>{{ vulnerability['severity'] }}</td>
+                <td>{{ vulnerability['description'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+{% if request.method == 'POST' %}
+    <p class="mt-4">No se encontraron vulnerabilidades con la palabra clave proporcionada.</p>
+{% endif %}
+{% endif %}
+<!-- ... (código siguiente en search_vulnerabilities.html) -->
+
+    </div>
+</body>
+</html>
+
